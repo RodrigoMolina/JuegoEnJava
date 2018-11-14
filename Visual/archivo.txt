@@ -1,0 +1,61 @@
+Cada nivel es completado con éxito cuando el personaje principal, Rockford, logra alcanzar la
+puerta de salida. La puerta de salida sólo será habilitada si Rockford encuentra una cantidad
+determinada de diamantes que varía según el nivel.
+
+Cada nivel puede jugarse empleando un máximo de 4 vidas.
+
+Rockford: es el personaje principal, debe recorrer el laberinto tratando de juntar una cantidad
+mínima de diamantes que le habiliten la puerta de salida al próximo nivel. Rockford puede
+escarbar en la basura así como empujar las rocas, las cuales se desplazarán sólo si el casillero
+contiguo está vacío.
+
+Rocas (Rocks o Boulder): Cada roca puede estar en uno de dos estados: “estacionario” o
+“cayendo”. Si la roca está en estado “estacionario” y el casillero (x,y+1) justo abajo está...
+1. vacío: la roca se convierte en una roca “cayendo”. (Tener en cuenta que aún no se mueve)
+2. muro, roca o diamante: si los casilleros (x-1,y) y (x-1,y+1) inmediatamente a la izquierda y
+abajo-izquierda están ambos vacíos, la roca “se desliza” al casillero (x-1, y) a la izquierda y se
+convierte en una roca “cayendo” (La regla también aplica si consideramos el lado derecho).
+3. cualquier otra cosa: la roca permanece “estacionaria”.
+Si la roca está actualmente “cayendo” y el casillero justo debajo es....
+1. vacío: la roca se mueve al casillero que se encontraba abajo de la misma.
+2. jugador (Rockford): el jugador explota y muere.
+3. luciérnaga: la luciérnaga explota y cualquier cosa que se encuentre en un área de 3*3
+que no sea un muro, se transforma en un espacio vacío. Las explosiones NO continúan
+recursivamente aún si hay otra luciérnaga o mariposa en el área de la explosión.
+4. mariposa: la mariposa explota y cualquier cosa que se encuentre en un área de 3*3 que no
+sea un muro se convierte en diamante. (Las explosiones NO continúan recursivamente.)
+5. cualquier otra cosa: la roca se vuelve “estacionaria”.
+
+Diamantes (Diamond): Los diamantes se comportan de la misma manera que las rocas, de
+modo que cada diamante se encuentra “estacionario” o “cayendo”, excepto que el diamante
+caiga en el jugador (Rockford), luciérnaga o mariposa es inofensivo y simplemente termina en
+un estado “estacionario”.
+
+Luciérnaga (Firefly): Si el jugador se encuentra en uno de los cuatro casilleros vecinos
+adyacentes a la luciérnaga (arriba abajo, izquierda o derecha), la luciérnaga explota convirtiendo
+un área de 3*3 en espacio vacío, y el jugador muere. De otro modo, la luciérnaga trata de
+moverse. Cada luciérnaga tiene una “dirección actual” (arriba abajo, izquierda o derecha). Si el
+siguiente casillero en su direcciòn està vacìo, la lucièrnaga se mueve allí. Si el siguiente casillero
+no está vacío, la luciérnaga cambia su dirección de acuerdo a las agujas del reloj, por ejemplo: si
+la dirección actual es “arriba”, la nueva dirección será a la “derecha”. (La luciérnaga no trata de
+moverse en la nueva dirección hasta que le toca nuevamente el turno.)
+
+Mariposa (Butterfly): Las mariposas se comportan de la misma manera que las luciérnagas,
+excepto que se mueven en sentido contrario a las agujas del reloj cuando su intento de
+movimiento se encuentra bloqueado por algo.
+
+Ameba (Amoeba): La ameba no se mueve y su toque es inofensivo para cualquiera, pero esta
+lentamente se va expandiendo por los casilleros vacíos, haciendo eventualmente imposible
+moverse al jugador. En cada turno, la ameba tiene “pocas probabilidades” de expandirse. La
+expansión busca un casillero vecino en una dirección elegida de manera random, y si ese
+casillero está vacío o sucio, se convierte en una ameba.
+
+Muro de Titanio (Titanium Wall): Un muro indestructible.
+
+Muro Mágico (Magic wall): Es un tipo especial de muro que permite convertir rocas en
+diamantes y viceversa sólo durante un tiempo determinado.
+
+Basura (Dirt): Rockford escarba a través de la basura para dejar espacios vacíos.
+
+Puerta de Salida (EXIT): Ésta se habilita cuando Rockford pudo recolectar una determinada
+cantidad de diamantes.
